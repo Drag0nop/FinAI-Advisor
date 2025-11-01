@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinAI Advisor Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M16 2L2 9L16 16L30 9L16 2Z" fill="currentColor" opacity="0.8"/>
+                            <path d="M2 23L16 30L30 23V9L16 16L2 9V23Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h1>FinAI Advisor</h1>
+                </div>
+                <div class="header-status">
+                    <span class="status-indicator"></span>
+                    <span class="status-text">All Systems Operational</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="dashboard-grid">
+                <!-- Fraud Detection Section -->
+                <section class="card" id="fraud-section">
+                    <div class="card-header">
+                        <div class="card-icon fraud-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>Fraud Detection</h2>
+                            <p class="card-description">Analyze transactions for potential fraud</p>
+                        </div>
+                    </div>
+                    <form id="fraud-form" class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="fraud-type">Transaction Type</label>
+                            <input type="text" id="fraud-type" name="type" placeholder="e.g., transfer, payment, cash_out" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fraud-amount">Amount</label>
+                            <input type="number" id="fraud-amount" name="amount" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fraud-oldbalance">Old Balance (Origin)</label>
+                            <input type="number" id="fraud-oldbalance" name="oldbalanceOrg" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fraud-newbalance">New Balance (Origin)</label>
+                            <input type="number" id="fraud-newbalance" name="newbalanceOrig" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fraud-oldbalancedest">Old Balance (Dest)</label>
+                            <input type="number" id="fraud-oldbalancedest" name="oldbalanceDest" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fraud-newbalancedest">New Balance (Dest)</label>
+                            <input type="number" id="fraud-newbalancedest" name="newbalanceDest" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fraud-balancediff">Balance Diff (Origin)</label>
+                            <input type="number" id="fraud-balancediff" name="balance_diff_orig" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fraud-balancediffdest">Balance Diff (Dest)</label>
+                            <input type="number" id="fraud-balancediffdest" name="balance_diff_dest" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fraud-errororig">Error Balance (Origin)</label>
+                            <input type="number" id="fraud-errororig" name="error_balance_orig" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fraud-errordest">Error Balance (Dest)</label>
+                            <input type="number" id="fraud-errordest" name="error_balance_dest" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-actions full-width">
+                            <button type="submit" class="btn btn-primary">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                Analyze Transaction
+                            </button>
+                        </div>
+                    </form>
+                    <div class="result" id="fraud-result"></div>
+                </section>
+
+                <!-- Budget Prediction Section -->
+                <section class="card" id="budget-section">
+                    <div class="card-header">
+                        <div class="card-icon budget-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>Budget Prediction</h2>
+                            <p class="card-description">Forecast your financial trajectory</p>
+                        </div>
+                    </div>
+                    <form id="budget-form" class="form-grid">
+                        <div class="form-group">
+                            <label for="budget-amount">Transaction Amount</label>
+                            <input type="number" id="budget-amount" name="amount" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget-oldbalance">Old Balance</label>
+                            <input type="number" id="budget-oldbalance" name="oldbalanceOrg" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget-newbalance">New Balance</label>
+                            <input type="number" id="budget-newbalance" name="newbalanceOrig" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget-balancediff">Balance Difference</label>
+                            <input type="number" id="budget-balancediff" name="balance_diff_orig" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-actions full-width">
+                            <button type="submit" class="btn btn-primary">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                </svg>
+                                Generate Prediction
+                            </button>
+                        </div>
+                    </form>
+                    <div class="result" id="budget-result"></div>
+                </section>
+
+                <!-- Investment Suggestion Section -->
+                <section class="card" id="investment-section">
+                    <div class="card-header">
+                        <div class="card-icon investment-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                                <polyline points="17 6 23 6 23 12"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>Investment Suggestion</h2>
+                            <p class="card-description">AI-powered crypto investment insights</p>
+                        </div>
+                    </div>
+                    <form id="investment-form" class="form-grid">
+                        <div class="form-group">
+                            <label for="invest-btc">Bitcoin Close Price</label>
+                            <input type="number" id="invest-btc" name="Close_BTC" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="invest-eth">Ethereum Close Price</label>
+                            <input type="number" id="invest-eth" name="Close_ETH" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="invest-bnb">BNB Close Price</label>
+                            <input type="number" id="invest-bnb" name="Close_BNB" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="invest-sma7">BTC 7-Day SMA</label>
+                            <input type="number" id="invest-sma7" name="Close_BTC_SMA7" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="invest-sma30">BTC 30-Day SMA</label>
+                            <input type="number" id="invest-sma30" name="Close_BTC_SMA30" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-actions full-width">
+                            <button type="submit" class="btn btn-primary">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                                Get Investment Advice
+                            </button>
+                        </div>
+                    </form>
+                    <div class="result" id="investment-result"></div>
+                </section>
+
+                <!-- Live Crypto Ticker Section -->
+                <section class="card" id="crypto-section">
+                    <div class="card-header">
+                        <div class="card-icon crypto-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="2" y1="12" x2="22" y2="12"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>Live Crypto Ticker</h2>
+                            <p class="card-description">Real-time cryptocurrency market data</p>
+                        </div>
+                    </div>
+                    <div class="crypto-actions">
+                        <button id="load-crypto" class="btn btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 4 23 10 17 10"/>
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                            </svg>
+                            Refresh Market Data
+                        </button>
+                    </div>
+                    <div class="result" id="crypto-result"></div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; FinAI Advisor. Powered by AI for smarter financial decisions.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
